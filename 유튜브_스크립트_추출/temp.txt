@@ -1,0 +1,217 @@
+ 0: 2 - Have you ever walked into a room where the color scheme was
+ 0: 4 - despair and the layout was chaos?
+ 0: 7 - There are people who can fix this-- decorators.
+ 0:10 - Have you ever encountered a function that was littered
+ 0:12 - with boilerplate code and reinvented wheels?
+ 0:16 - There are tools that can fix this-- decorators.
+ 0:19 - In Python, a decorator is a function
+ 0:21 - that sprinkles magic across other functions and classes.
+ 0:25 - This makes it easy to extract common commands
+ 0:28 - and pack them together into a single reusable function.
+ 0:32 - Today, we will redecorate some Python code
+ 0:34 - and show you how to make your repo a more beautiful place.
+ 0:42 - A decorator is a command in Python
+ 0:44 - that starts with an @ symbol.
+ 0:46 - Decorators are used before functions,
+ 0:48 - classes,
+ 0:49 - or methods.
+ 0:51 - A decorator in front of a function
+ 0:52 - is called a function decorator.
+ 0:55 - When a decorator is in front of a class,
+ 0:57 - we call it a class decorator.
+ 1: 0 - And while not as common, you can put a decorator
+ 1: 2 - in front of a method and call it a method decorator.
+ 1: 6 - Decorators change the behavior of functions and classes
+ 1: 9 - without you having to change the code.
+ 1:11 - For example, in this lesson,
+ 1:14 - we will create a decorator called timer,
+ 1:16 - which will make it easy to measure the execution speed of a function.
+ 1:20 - The @ notation is an example of syntactic sugar.
+ 1:25 - Syntactic sugar is not a coffee additive.
+ 1:28 - It is a programming additive,
+ 1:29 - syntax that makes code easier to read and write.
+ 1:33 - You may be thinking: "How does Python perform this trick?"
+ 1:37 - You may also be thinking: " The correct word is illusion".
+ 1:41 - A magician never reveals their secrets.
+ 1:43 - I am not a magician.
+ 1:45 - So let us go inside Python to learn the secret of decorators.
+ 1:50 - In Python, functions and classes are first class citizens.
+ 1:54 - In programming language design, the term “first class citizen”
+ 1:58 - means anything that can be passed around like regular data types.
+ 2: 2 - For example, in Python, you can create a function called “compose”
+ 2: 7 - where the first argument is a function,
+ 2: 9 - the second argument is a function,
+ 2:11 - and the third argument is a variable.
+ 2:13 - We can then call ‘compose’
+ 2:16 - and pass in the print and length functions, and a string.
+ 2:20 - When we run..
+ 2:21 - ..the function prints the length of our string.
+ 2:24 - We passed in 3 arguments: two were functions, one was a string.
+ 2:29 - You may be asking your monitor, “What does this have to do with decorators?”
+ 2:34 - Before I answer that question, let us see another clever feature of Python.
+ 2:40 - Functions in Python are like birds – they can be nested.
+ 2:44 - Here is a comical yet suitable example.
+ 2:47 - The function random_power will return one of three functions at random.
+ 2:52 - A square function, a cube function, or a fourth power function.
+ 2:57 - Notice that we define three functions inside the random_power function.
+ 3: 2 - These are called nested functions.
+ 3: 4 - We could simply not test this function
+ 3: 6 - and assume it will all work according to plan.
+ 3: 9 - Or we can test it.
+ 3:11 - Let us test it..10 times.
+ 3:14 - Each time, get a random_power function and evaluate it at 3.
+ 3:19 - Run.
+ 3:21 - I am convinced.
+ 3:23 - We have established that in Python,
+ 3:25 - functions are first-class citizens that can be nested.
+ 3:29 - Now let us use these capabilities to create
+ 3:31 - a decorator called timer.
+ 3:34 - Here is a function that computes the prime factorization of a positive integer.
+ 3:39 - How would you measure the execution speed of this function?
+ 3:42 - One way would be to import the time module..
+ 3:45 - Record the time when the function starts..
+ 3:48 - Record the time when the function stops..
+ 3:50 - And then print the difference.
+ 3:53 - Let us test this on a handful of large integers.
+ 3:57 - Run.
+ 3:59 - This works.
+ 4: 0 - But this approach to timing is inflexible.
+ 4: 3 - The timing code would have to be added to each function you want to time.
+ 4: 7 - Then when you are done, this extra code would need to be removed.
+ 4:11 - We will instead use a more flexible and general approach.
+ 4:15 - First, rewind..
+ 4:17 - Remove the timing code from the prime factorization function.
+ 4:21 - Initiating better approach..
+ 4:23 - Create a function called timer that takes any function f
+ 4:28 - and returns a new function that includes code for measuring execution time.
+ 4:33 - The wrapper function is a nested function.
+ 4:36 - This inner function has two parts.
+ 4:38 - The first part evaluates f using the arguments and returns the result.
+ 4:44 - The other lines measure the start and stop times
+ 4:47 - and then prints the elapsed time.
+ 4:50 - Finally, we return the wrapper function
+ 4:53 - like we would return any other value.
+ 4:56 - This function has it all.
+ 4:58 - It treats functions as first-class citizens
+ 5: 1 - by accepting a function as an input
+ 5: 3 - and returning a new function as the output.
+ 5: 6 - And there is a nested function.
+ 5: 9 - We can use timer to create a new function called
+ 5:12 - prime factorization timer.
+ 5:14 - When we use this new function,
+ 5:16 - we get both the time required and the output of the prime factorization function.
+ 5:22 - This is an improvement
+ 5:23 - because we didn't have to change the original function at all.
+ 5:26 - Better still,
+ 5:27 - we can use this timer function on any function.
+ 5:31 - Win, win.
+ 5:33 - Plus, plus.
+ 5:35 - But we still had to write throwaway code.
+ 5:38 - That increases my sadness level to 2.9.
+ 5:42 - This is where the decorator syntax saves the day..
+ 5:45 - and the night.
+ 5:47 - Put the @timer decorator in front of the prime factorization function.
+ 5:52 - Now, when you call the prime factorization function,
+ 5:55 - Python will wrap it in the timer function for you.
+ 5:58 - Run.
+ 5:59 - That syntactic sugar is definitely sweet.
+ 6: 4 - Let us see this process again,
+ 6: 6 -  but in a more abstract way.
+ 6: 8 - A decorator is a function that accepts a function
+ 6:11 - and returns a function.
+ 6:12 - Inside the decorator function, you build a new nested function.
+ 6:16 - Finally, you return the new function.
+ 6:19 - When building this nested function,
+ 6:21 - people often use this notation to handle all possible arguments.
+ 6:26 - 'args' is a tuple of positional arguments.
+ 6:29 - And 'kwargs' is a dictionary of keyword arguments.
+ 6:34 - To augment any function with this decorator,
+ 6:36 - use the @ notation.
+ 6:38 - Now, whenever you call the function,
+ 6:40 - Python will actually execute this code.
+ 6:44 - Here is a different way to see how Python interprets
+ 6:46 - the decorator notation.
+ 6:50 - Python has a module named 'functools',
+ 6:53 - which comes with a collection of function tools.
+ 6:55 - 'func tools'.. 'function tools'.
+ 6:59 - There is a connection there that eludes my nets.
+ 7: 2 - Some of these tools are decorators, like cache and wraps.
+ 7: 6 - Many people use cache to buy wraps to save time.
+ 7: 9 - And many programmers cache their wraps to save time.
+ 7:13 - Since time is finite, we will not explore every decorator in this module.
+ 7:18 - But we will explore these two.
+ 7:22 - Imagine a simple function that uses the 'catch-all' approach to arguments.
+ 7:26 - This function will print args and keyword args.
+ 7:30 - Call this function.
+ 7:32 - You will see that args contains a tuple of all positional arguments.
+ 7:36 - 'kwargs' is a dictionary with the named arguments.
+ 7:40 - You can also access the name of the function and the doc string with the name and doc special attributes.
+ 7:47 - Run.
+ 7:48 - Now watch what happens if we create a do nothing decorator
+ 7:52 - and apply it to our function.
+ 7:54 - Run.
+ 7:56 - Concern rising .
+ 7:58 - Our carefully crafted function name and doc string are gone.
+ 8: 2 - We can recover them with the wraps decorator.
+ 8: 5 - Apply it to the inner function with the outer function
+ 8: 8 - as an argument and run.
+ 8:10 - Better.
+ 8:12 - By the way, notice the wraps decorator accepts an argument.
+ 8:17 - This is a very important thing to notice.
+ 8:19 - It is possible to design a decorator that
+ 8:21 - accepts arguments to modify the behavior of the decorator.
+ 8:26 - An argument to modify a decorator that
+ 8:28 - modifies a class or function.
+ 8:31 - Can we go deeper?
+ 8:32 - Should we go deeper?
+ 8:35 - The cache decorator in the func tools module provides a function with memoization.
+ 8:41 - This is an optimization technique that caches function calls to avoid repeated calculations.
+ 8:47 - A classic example for demonstration purposes
+ 8:49 - is the Fibonacci sequence.
+ 8:52 - This is the sequence that starts with a pair of ones.
+ 8:55 - Every additional number is the sum of the previous two numbers.
+ 8:59 - Here is a recursive function that
+ 9: 0 - computes the n-th term of the Fibonacci sequence.
+ 9: 4 - The first thing to do is to verify the input
+ 9: 7 - is a positive integer.
+ 9: 9 - Next, we handle the first two cases separately
+ 9:12 - from the subsequent terms.
+ 9:14 - If n is greater than 2, we compute the term recursively.
+ 9:18 - Finally, check the first few values to confirm correctness.
+ 9:22 - Run.
+ 9:25 - If you try to use our timer decorator
+ 9:27 - to measure execution speed, you will run into a problem.
+ 9:31 - Run.
+ 9:32 - Because the function is recursive,
+ 9:34 - it displays the time required for each step.
+ 9:39 - There is an easy workaround.
+ 9:41 - Define a wrapper function that
+ 9:42 - calls the Fibonacci function.
+ 9:45 - And then time the wrapper function.
+ 9:53 - Run.
+ 9:55 - The later function calls take an observable amount of time to compute.
+10: 0 - We will now use the cache decorator
+10: 2 - on the Fibonacci function to see the benefits of caching.
+10: 6 - Run.
+10: 8 - The speed benefits are clear.
+10:11 - To create a decorator, we wrote a wrapper function
+10:14 - that added new features to a function.
+10:17 - This inner function with additional features
+10:19 - is returned by the wrapper function.
+10:22 - The decorator syntactic sugar transforms this trick
+10:26 - into highly readable code.
+10:28 - But we do not have to stop here.
+10:30 - It is possible to have one function nested inside another
+10:34 - nested inside another.
+10:35 - This is the approach used to create a decorator that accepts an argument.
+10:40 - There is no limit to how deep we can go,
+10:43 - but there are limits on the length of this video.
+10:46 - Whenever you find yourself writing the same code over
+10:56 - Am I right?
+10:56 - Am I right?
+10:56 - Am I right?
+10:57 - How did I get here?
+10:58 - Where does that highway go to?
+11: 0 - Because your code does not have
+11: 2 - to be the same as it ever was.
+11: 4 - The same as it ever was.
